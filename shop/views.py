@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from shop.models import Category
-from shop.serializers import CategorySerializer
+from shop.models import Category, Product
+from shop.serializers import CategorySerializer, ProductSerializer
 
 
 class CategoryAPIView(APIView):
@@ -10,3 +10,9 @@ class CategoryAPIView(APIView):
         categories = Category.objects.all()
         serilizes = CategorySerializer(categories, many=True)
         return Response(serilizes.data)
+    
+class ProductAPIView(APIView):
+    def get(self, *args, **kwargs):
+        products = Product.objects.all()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
